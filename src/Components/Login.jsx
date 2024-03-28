@@ -22,7 +22,7 @@ const Login = () => {
             <input type="text" name="Password" placeholder="Enter Password" className="pl-10 py-2 w-full border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
             <RiLockPasswordFill className="absolute top-1/2 transform translate-y-1/2 left-2 text-gray-400" />
           </div>
-          <button className="text-lg font-semibold text-white bg-blue-500 border border-transparent px-6 py-2 rounded hover:bg-white hover:text-blue-500 border-blue-500 transition duration-300 ease-in-out">Sign in</button>
+          <button className="text-lg w-96 font-semibold text-white bg-blue-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-blue-500 border-blue-500 transition duration-300 ease-in-out">Sign in</button>
         </div>
       </form>
     </div>

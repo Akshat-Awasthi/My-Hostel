@@ -14,7 +14,7 @@ const DateTime = () => {
 
   return (
     <div>
-      <p>{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+      <p className='text-xs'>{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
     </div>
   );
 };

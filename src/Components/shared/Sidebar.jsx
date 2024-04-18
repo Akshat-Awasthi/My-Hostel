@@ -17,7 +17,7 @@ function SideLink({item}){
 function SideBottom({item}){
   const {pathname} = useLocation();
   return(
-    <Link to={item.path} className={classNames(pathname === item.path ? 'text-white bg-blue-700': 'text-slate-300',ClassLinks,'font-bold pl-14 text-red-700')}>
+    <Link to={item.path} className={classNames(pathname === item.path ? 'text-white bg-blue-700': 'text-slate-300',ClassLinks,'font-bold pl-14 text-red-500')}>
     <span className='text-2xl'>{item.icon}</span>
     {item.label}
     </Link>

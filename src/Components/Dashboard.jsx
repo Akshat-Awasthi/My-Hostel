@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import { PiHandWavingFill } from "react-icons/pi";
-
 import { Link } from 'react-router-dom';
 import Rightbar from './Rightbar';
-
-
+import StudentProfile from "./lib/const/StudentProfile.json"
 import WeekFeedback from "./lib/const/WeekFeedback.json"
 import TodayMenu from "./lib/const/TodayMenu.json"
 
+
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
-
 defaults.plugins.title.display = true;
 defaults.plugins.title.align = "start";
 defaults.plugins.title.font.size = 16;
@@ -20,12 +18,21 @@ defaults.plugins.title.color = "black";
 
 const Dashboard = () => {
   const colors = ['bg-purple-200', 'bg-[#ACC3FD]', 'bg-[#BAE5F5]', 'bg-[#CCEFBF]'];
+  const name = StudentProfile[0].name;
   return (
     <div className='flex flex-row h-[100vh] overflow-y-auto bg-slate-100'>
         <div className='flex flex-col w-3/4'>
             <div className='flex flex-row pl-3 pb-16 text-xl'>
                 <div className='text-xl pt-1'><PiHandWavingFill /></div>
-                <h1 className='pl-1'>Welcome, Akshat!</h1>
+                <h1 className='pl-1'>Welcome, {name} !</h1>
+            </div>
+            <div>
+                <div className='flex flex-row '>
+                <h2 className='flex-1 ml-4 text-xl font-semibold'>Overall Sentiment</h2>
+                <Link to='/sentiment'>View all</Link>
+                </div>
+                
+                
             </div>
             <div className='flex flex-col pl-3'>
             <div className='h-[45vh] '>

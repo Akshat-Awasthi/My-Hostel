@@ -61,9 +61,9 @@ const Rightbar = () => {
                             <div key={item.name} className={`rounded-md border border-solid ${index === 0 ? 'border-none' : 'border-blue-500'} h-40 w-64 p-2 mb-2 ${index === 0 ? announceCol[0] : announceCol[1]}`}>
 
                                 <ul>
-                                    <li className='flex flex-row border-b border-slate-300'><div className='flex-1 font-medium  mb-2 pb-1'>{item.name}</div> <div className='mr-2 mb-1 pl-2 pt-1 h-7 w-14 rounded-md bg-[#D9DADB]'><DateTime /></div> </li>
+                                    <li className='flex flex-row border-b border-slate-300'><div className='flex-1 font-medium  mb-2 pb-1'>{item.name}</div> <div className='mr-2 mb-1 pb-1 pl-2 pt-1 h-5 w-12 rounded-md bg-[#D9DADB]'><DateTime  /></div> </li>
 
-                                    <li className='pt-2'>{item.message}</li>
+                                    <li className='pt-2 text-sm'>{item.message}</li>
                                 </ul>
                             </div>
                         ))

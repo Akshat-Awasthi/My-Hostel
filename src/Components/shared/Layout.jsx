@@ -15,7 +15,7 @@ const Layout = () => {
     <div className='flex flex-row bg-neutral-100 h-screen w-screen overflow-hidden'>
         <Sidebar />
         <div>
-        <div className='flex flex-row items-center h-16 w-[1190px] bg-neutral-100 border-y-[1px] border-blue-950'>
+        <div className='flex flex-row items-center h-16 w-full bg-neutral-100 border-y-[1px] border-blue-950'>
               <div className='flex-1 flex justify-center items-center text-2xl'>{hostelName}</div>
               <div className='mr-10 flex flex-row gap-5 text-2xl active:neutral-400 '>
                 <Link className='text-black hover:text-stone-400'><MdNotificationsActive/></Link>

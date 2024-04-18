@@ -22,3 +22,18 @@
         @apply text-sky-500 hover:underline;
     }
 }
+@keyframes rotateAndBack {
+    0%, 100% {
+      transform: scaleX(-1); /* Start and end state: horizontal flip */
+    }
+    50% {
+      transform: scaleX(1); /* Middle state: back to original */
+    }
+  }
+  
+  .animate-rotate-and-back {
+    animation: rotateAndBack 2s infinite; /* Change the duration as needed */
+  }
+  
+  
+  

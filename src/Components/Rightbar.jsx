@@ -4,7 +4,7 @@ import { PiNotepadFill } from "react-icons/pi";
 import { GrSemantics } from "react-icons/gr";
 import Announcement from "./lib/const/Announcement.json"
 import { Link } from 'react-router-dom';
-import DateTime from './DateTime';
+import DateTime from './DateAndTime/DateTime';
 
 const Rightbar = () => {
     const sem = parseInt(StudentProfile[0].semester); // Parse semester to integer for calculation

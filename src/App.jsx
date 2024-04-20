@@ -7,7 +7,7 @@ import Menu from "./Components/Menu"
 import Profile from "./Components/Profile"
 import Feedback from "./Components/Feedback"
 import Complaint from "./Components/Complaint"
-import FoodFeedbackSentimentAnalyzer from "./Components/FoodFeedbackSentimentAnalyzer"
+import FoodFeedbackSentimentAnalyzer from "./Components/MachineLearning/FoodFeedbackSentimentAnalyzer"
 
 function App() {
 

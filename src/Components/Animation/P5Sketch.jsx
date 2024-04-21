@@ -9,7 +9,7 @@ const P5Sketch = () => {
             let faceX; // Initial x-coordinate of the face
             const faceY = 50; // Fixed y-coordinate of the face (middle of the small canvas)
             const faceRadius = 30; // Larger radius of the face to make it bigger
-            const faceSpeed = 1.5; // Speed of the face
+            const faceSpeed = 2; // Speed of the face
             let faceDirection = 1; // Direction of face movement (1 for right, -1 for left)
             let isHappy = true; // State of the face (true for happy, false for sad)
 

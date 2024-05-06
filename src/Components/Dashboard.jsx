@@ -18,8 +18,6 @@ defaults.plugins.title.font.size = 16;
 defaults.plugins.title.color = "black";
 
 
-
-
 function Dashboard() {
     const [LoadingTime,setLoadingTime] = useState(false);
     const navigate = useNavigate();

@@ -30,10 +30,21 @@ function FoodFeedbackSentimentAnalyzer({ feedbackData }) {
           return prediction.score * 10; 
         });
         const averageSentiment = sentimentScores.reduce((total, score) => total + score, 0) / sentimentScores.length;
+        const sentimentLabelOut = (averageSentiment) =>{
+          if(averageSentiment>=0 && averageSentiment<=3.33){
+            return 'Negative';
+          }
+          else if(averageSentiment>=3.34 && averageSentiment<=6.33){
+            return 'Moderate';
+          }
+          else if(averageSentiment>=6.34 && averageSentiment<=10){
+            return 'Positive';
+          };
+        }
         return {
           food: food,
           averageSentiment: averageSentiment.toFixed(2),
-          sentimentLabel: averageSentiment > 5 ? 'Positive' : 'Negative',
+          sentimentLabel: sentimentLabelOut(averageSentiment),
           
         };
       });
@@ -41,10 +52,20 @@ function FoodFeedbackSentimentAnalyzer({ feedbackData }) {
       setFoodSentiments(foodSentiments);
 
       // Calculate overall average sentiment
+      const overallSentimentLabelOut = (overallAverageSentiment)=>{
+        if(overallAverageSentiment>=0 && overallAverageSentiment<=3.33){
+          return 'Negative';
+        }
+        else if(overallAverageSentiment>=3.34 && overallAverageSentiment<=6.33){
+          return 'Moderate';
+        }
+        else if(overallAverageSentiment>=6.34 && overallAverageSentiment<=10){
+          return 'Positive';
+        };
+      }
       const allSentimentScores = foodSentiments.map((food) => parseFloat(food.averageSentiment));
       const overallAverageSentiment = allSentimentScores.reduce((total, score) => total + score, 0) / allSentimentScores.length;
-      const overallSentimentLabel = overallAverageSentiment > 5 ? 'Positive' : 'Negative';
-     
+      const overallSentimentLabel = overallSentimentLabelOut(overallAverageSentiment);
 
       setOverallSentiment({
         averageSentiment: overallAverageSentiment.toFixed(2),
@@ -76,7 +97,7 @@ function FoodFeedbackSentimentAnalyzer({ feedbackData }) {
                 <div key={index} className={`mr-6 mb-5 w-64 h-42 p-6 pl-7 rounded-md bg-cyan-500 text-slate-100 `}>
                   <p className='font-semibold'>Food: {item.food}</p>
                   <li className='list-disc'>Average Sentiment Score (out of 10): {item.averageSentiment}</li>
-                  <li className='flex flex-row'>Sentiment: <p className={` pl-3 ${item.sentimentLabel === 'Positive' ? 'text-lime-500' : 'text-red-700'}`}>{item.sentimentLabel}</p> </li>
+                  <li className='flex flex-row'>Sentiment: <p className={` pl-3 ${item.sentimentLabel === 'Positive' ? 'text-lime-400' : item.sentimentLabel === 'Moderate' ? 'text-yellow-400' : 'text-red-700'}`}>{item.sentimentLabel}</p> </li>
                 </div>
                 ))}
             </div>
@@ -85,7 +106,7 @@ function FoodFeedbackSentimentAnalyzer({ feedbackData }) {
             <div className={` w-96 h-36 p-6 pl-7 rounded-md ml-10 bg-gray-400`}>
               <h2 className='text-xl font-semibold '>Overall Average Sentiment</h2>
               <p>Average Sentiment Score (out of 10): {overallSentiment.averageSentiment}</p>
-              <p className='flex flex-row'>Sentiment: <p className={` pl-3 ${overallSentiment.sentimentLabel === 'Positive' ? 'text-lime-500' : 'text-red-700'}`}>{overallSentiment.sentimentLabel}</p></p>
+              <p className='flex flex-row'>Sentiment: <p className={` pl-3 ${overallSentiment.sentimentLabel === 'Positive' ? 'text-lime-500' : overallSentiment.sentimentLabel=== 'Moderate' ? 'text-yellow-400' : 'text-red-700'}`}>{overallSentiment.sentimentLabel}</p></p>
             </div>
             </div>
           </div>
@@ -129,7 +150,7 @@ FoodFeedbackSentimentAnalyzer.defaultProps = {
     { food: "salad", comment: "Healthy and satisfying." },
     { food: "smoothie", comment: "Refreshing and nutritious!" },
     { food: "smoothie", comment: "Great for a quick breakfast or snack." },
-    { food: "omelette", comment: "Fluffy and delicious!" },
+    { food: "omelette", comment: "tasteless and very bad" },
     { food: "omelette", comment: "Customize with your favorite fillings." },
     { food: "sandwich", comment: "Loaded with fresh veggies and tasty sauces!" },
     { food: "sandwich", comment: "Perfect for a quick and satisfying lunch." },
@@ -141,9 +162,9 @@ FoodFeedbackSentimentAnalyzer.defaultProps = {
     { food: "burrito", comment: "Love the combination of ingredients, so tasty!" },
     { food: "burrito", comment: "Dry and overcooked, disappointing experience." },
     { food: "curry", comment: "Spicy and aromatic, a true delight for the senses." },
-    { food: "curry", comment: "Creamy coconut curry with tender chicken, simply amazing." },
-    { food: "curry", comment: "Lacked depth of flavor, quite bland." },
-    { food: "pancake", comment: "Fluffy and golden brown, topped with maple syrup." },
+    { food: "curry", comment: "belong to dustbin." },
+    { food: "curry", comment: "horible and waste of money" },
+    { food: "pancake", comment: "very bad." },
     { food: "pancake", comment: "Stack them high and enjoy with your favorite toppings!" },
     { food: "pancake", comment: "Burnt edges, ruined the whole breakfast." },
     { food: "sushi", comment: "Fresh and delicate, a culinary work of art." },

@@ -1,32 +1,36 @@
-import React from "react"
-import { BrowserRouter as Router , Routes , Route } from "react-router-dom"
-import Login from "./Components/Login"
-import Layout from "./Components/shared/Layout"
-import Dashboard from "./Components/Dashboard"
-import Menu from "./Components/Menu"
-import Profile from "./Components/Profile"
-import Feedback from "./Components/Feedback"
-import Complaint from "./Components/Complaint"
-import FoodFeedbackSentimentAnalyzer from "./Components/MachineLearning/FoodFeedbackSentimentAnalyzer"
+import React from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Complaint from './Components/Complaint';
+import Dashboard from './Components/Dashboard';
+import Feedback from './Components/Feedback';
+import Login from './Components/Login';
+import FoodFeedbackSentimentAnalyzer from './Components/MachineLearning/FoodFeedbackSentimentAnalyzer';
+import Menu from './Components/Menu';
+import PrivateRoute from './Components/PrivateRoute'; // Import the PrivateRoute component
+import Profile from './Components/Profile';
+import Layout from './Components/shared/Layout';
 
 function App() {
-
   return (
-    
     <Router>
       <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route index element={<Dashboard/>} />
-          <Route path="/menu" element={<Menu/>} />
-          <Route path="/profile" element={<Profile/>} /> 
-          <Route path="/feedback" element={<Feedback/>} />
-          <Route path="/complaint" element={<Complaint />} />
-          <Route path="/sentiment" element={<FoodFeedbackSentimentAnalyzer />} />
+        {/* Public Route */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Protected Routes */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/complaint" element={<Complaint />} />
+            <Route path="/sentiment" element={<FoodFeedbackSentimentAnalyzer />} />
+          </Route>
         </Route>
-        <Route path="/login" element={<Login/>} />  
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

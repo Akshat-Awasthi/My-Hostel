@@ -68,7 +68,9 @@ function Dashboard() {
 
                 </div>
                 <div className='flex flex-col pl-3'>
-                    <div className='h-[45vh] '>
+                    <div className='h-[50vh] mb-4 '>
+                        <div className='transform translate-x-[760px] translate-y-7' ><Link to='/chart' >Click Here</Link></div>
+                        <div className='h-full'>
                         <Line
                             data={{
                                 labels: WeekFeedback.map((data) => data.label),
@@ -99,6 +101,8 @@ function Dashboard() {
                                     },
                                 },
                             }} />
+                        </div>
+                        
                     </div>
                     <div className='flex flex-row'>
                         <div className='flex flex-col h-[40vh] m-2 bg-slate-100'>

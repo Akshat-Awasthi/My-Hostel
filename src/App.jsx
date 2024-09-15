@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Complaint from './Components/Complaint';
@@ -9,6 +10,9 @@ import Menu from './Components/Menu';
 import PrivateRoute from './Components/PrivateRoute'; // Import the PrivateRoute component
 import Profile from './Components/Profile';
 import Layout from './Components/shared/Layout';
+import Chart from "./Components/Chart"
+import Attendence from "./Components/MachineLearning/Attendence"
+
 
 function App() {
   return (
@@ -16,7 +20,6 @@ function App() {
       <Routes>
         {/* Public Route */}
         <Route path="/login" element={<Login />} />
-
         {/* Protected Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<Layout />}>
@@ -26,6 +29,8 @@ function App() {
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/complaint" element={<Complaint />} />
             <Route path="/sentiment" element={<FoodFeedbackSentimentAnalyzer />} />
+            <Route path="/attendence" element={<Attendence/>} />
+            <Route path="/chart" element={<Chart />} />
           </Route>
         </Route>
       </Routes>

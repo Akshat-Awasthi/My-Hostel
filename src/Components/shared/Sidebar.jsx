@@ -52,7 +52,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className='flex flex-col bg-blue-950 w-64 p-3 text-white'>
+    <div className='flex flex-col bg-blue-950 min-w-64 p-3 text-white'>
       <div className='flex flex-row m-1'>
         <span>My-Hostel</span>
       </div>

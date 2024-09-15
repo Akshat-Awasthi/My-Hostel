@@ -21,8 +21,6 @@ function FoodFeedbackSentimentAnalyzer({ feedbackData }) {
     // Callback function when the model is loaded
     function modelReady() {
       console.log('Sentiment model loaded!');
-
-      // Analyze sentiments for each food item
       const foodSentiments = Object.keys(groupedFeedback).map((food) => {
         const comments = groupedFeedback[food];
         const sentimentScores = comments.map((comment) => {

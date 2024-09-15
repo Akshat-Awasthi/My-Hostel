@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import DateTime from './DateAndTime/DateTime';
 
 const Rightbar = () => {
-    const sem = parseInt(StudentProfile[0].semester); // Parse semester to integer for calculation
+    const sem = parseInt(StudentProfile[0].semester);
     const semesterWidth = (sem / 8) * 100;
     
         const [currentDay, setCurrentDay] = useState('');
@@ -62,7 +62,6 @@ const Rightbar = () => {
 
                                 <ul>
                                     <li className='flex flex-row border-b border-slate-300'><div className='flex-1 font-medium  mb-2 pb-1'>{item.name}</div> <div className='mr-2 mb-1 pb-1 pl-2 pt-1 h-5 w-12 rounded-md bg-[#D9DADB]'><DateTime  /></div> </li>
-
                                     <li className='pt-2 text-sm'>{item.message}</li>
                                 </ul>
                             </div>

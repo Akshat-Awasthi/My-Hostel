@@ -1,33 +1,59 @@
-import React from 'react'
-import { Outlet ,Link} from 'react-router-dom'
-import Sidebar from './Sidebar'
-import { CgProfile } from "react-icons/cg";
-import { MdNotificationsActive } from "react-icons/md";
-import { IoAlertCircle } from "react-icons/io5";
+import React from 'react';
+import { Outlet, Link } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import { CgProfile } from 'react-icons/cg';
+import { MdNotificationsActive } from 'react-icons/md';
+import { IoAlertCircle } from 'react-icons/io5';
 
-import StudentProfile from "../lib/const/StudentProfile.json"
+import StudentProfile from '../lib/const/StudentProfile.json';
 
-const hostelName = StudentProfile[0].hostel;
-
+const { name, hostel: hostelName } = StudentProfile[0];
 
 const Layout = () => {
   return (
-    <div className='flex flex-row bg-neutral-100 h-screen w-screen overflow-hidden'>
-        <Sidebar />
-        <div>
-        <div className='flex flex-row items-center h-16 w-full bg-neutral-100 border-y-[1px] border-blue-950'>
-              <div className='flex-1 flex justify-center items-center text-2xl'>{hostelName}</div>
-              <div className='mr-10 flex flex-row gap-5 text-2xl active:neutral-400 '>
-                <Link className='text-black hover:text-stone-400'><MdNotificationsActive/></Link>
-                <Link className='text-black hover:text-stone-400'><IoAlertCircle/></Link>
-                <Link to='/profile' className='text-black hover:text-stone-400'><CgProfile /></Link>
-              </div>
-            </div>
-            <div>{<Outlet />}</div>
-        </div>
-        
-    </div>
-  )
-}
+    <div className="flex flex-row bg-gray-100 h-screen overflow-hidden w-screen fixed ">
+      <Sidebar />
+      <div className="flex flex-col flex-grow">
+        <div className="h-[10vh] w-full bg-neutral-100 border-y-[1px] border-blue-950 flex items-center px-4 ">
+          {/* Main content goes here */}
+          <div className="ml-auto flex items-center gap-5 mb-2 mt-2">
+            {/* Notifications */}
+            <Link
+              className="text-gray-800 hover:text-gray-400 text-xl"
+              to="/notifications"
+            >
+              <MdNotificationsActive />
+            </Link>
 
-export default Layout
+            {/* Alerts */}
+            <Link
+              className="text-gray-800 hover:text-gray-400 text-xl"
+              to="/alerts"
+            >
+              <IoAlertCircle />
+            </Link>
+
+            {/* User Info */}
+            <div className="flex items-center gap-2">
+              <div className="flex flex-col text-right leading-tight">
+                <span className="block text-xs font-medium">{name}</span>
+                <span className="block text-[12px] text-gray-600">{hostelName}</span>
+              </div>
+              <Link
+                className="text-gray-600 hover:text-gray-400 text-[35px]"
+                to="/profile"
+              >
+                <CgProfile />
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="flex-grow overflow-auto">
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Layout;

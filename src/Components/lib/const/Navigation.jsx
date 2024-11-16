@@ -31,7 +31,7 @@ export const Sidebar_Links  = [
     {
         key:'leave',
         label:'Leave Form',
-        path:'/leave',
+        path:'/leaveform',
         icon:<FaWpforms/>
     },
     {

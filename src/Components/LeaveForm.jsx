@@ -2,11 +2,11 @@ import React from 'react'
 
 const LeaveForm = () => {
   return (
-    <div>
+   
       <div>
-        
+        leaveform
       </div>
-    </div>
+   
   )
 }
 

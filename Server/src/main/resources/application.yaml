@@ -5,7 +5,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/
-      database: canteen_connect_db
+      database: hosteldb
       auto-index-creation: true
 
 security:

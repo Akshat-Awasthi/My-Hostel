@@ -92,19 +92,19 @@ function FoodFeedbackSentimentAnalyzer({ feedbackData }) {
             <h1 className='text-xl font-bold ml-16'>Food Feedback Sentiment Analyzer</h1>
                   <div className='flex flex-wrap ml-16 mt-4'>
                   {foodSentiments.map((item, index) => (
-                <div key={index} className={`mr-6 mb-5 w-64 h-42 p-6 pl-7 rounded-md bg-cyan-500 text-slate-100 `}>
+                <div key={index} className={`mr-6 mb-5 w-64 h-42 p-6 pl-7 rounded-md bg-blue-800 text-slate-300 `}>
                   <p className='font-semibold'>Food: {item.food}</p>
                   <li className='list-disc'>Average Sentiment Score (out of 10): {item.averageSentiment}</li>
-                  <li className='flex flex-row'>Sentiment: <p className={` pl-3 ${item.sentimentLabel === 'Positive' ? 'text-lime-400' : item.sentimentLabel === 'Moderate' ? 'text-yellow-400' : 'text-red-700'}`}>{item.sentimentLabel}</p> </li>
+                  <li className='flex flex-row'>Sentiment: <p className={` pl-3 ${item.sentimentLabel === 'Positive' ? 'text-green-500' : item.sentimentLabel === 'Moderate' ? 'text-yellow-500' : 'text-red-600'}`}>{item.sentimentLabel}</p> </li>
                 </div>
                 ))}
             </div>
             <div>
               <h1 className='ml-10 text-2xl mb-2 font-semibold'>Overall :</h1>
-            <div className={` w-96 h-36 p-6 pl-7 rounded-md ml-10 bg-gray-400`}>
+            <div className={` w-96 h-36 p-6 pl-7 rounded-md ml-10 bg-gray-300`}>
               <h2 className='text-xl font-semibold '>Overall Average Sentiment</h2>
               <p>Average Sentiment Score (out of 10): {overallSentiment.averageSentiment}</p>
-              <p className='flex flex-row'>Sentiment: <p className={` pl-3 ${overallSentiment.sentimentLabel === 'Positive' ? 'text-lime-500' : overallSentiment.sentimentLabel=== 'Moderate' ? 'text-yellow-400' : 'text-red-700'}`}>{overallSentiment.sentimentLabel}</p></p>
+              <p className='flex flex-row'>Sentiment: <p className={` pl-3 ${overallSentiment.sentimentLabel === 'Positive' ? 'text-lime-500' : overallSentiment.sentimentLabel=== 'Moderate' ? 'text-yellow-500' : 'text-red-600'}`}>{overallSentiment.sentimentLabel}</p></p>
             </div>
             </div>
           </div>

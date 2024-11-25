@@ -27,7 +27,7 @@ const Rightbar = () => {
 
     return (
         <div
-            className="bg-white shadow-lg border-l border-gray-300 w-full w-[310px] right-0"
+            className="bg-white shadow-lg border-l border-gray-300 w-full w-[300px] right-0"
             style={{ zIndex: 1000 }}
         >
             <div className="h-12">

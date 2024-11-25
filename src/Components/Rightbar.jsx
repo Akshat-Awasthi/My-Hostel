@@ -27,7 +27,7 @@ const Rightbar = () => {
 
     return (
         <div
-            className="bg-white shadow-lg border-l border-gray-300 w-full w-[310px] right-0"
+            className="bg-white shadow-lg border-l border-gray-300 w-full w-[300px] right-0"
             style={{ zIndex: 1000 }}
         >
             <div className="h-12">
@@ -72,7 +72,7 @@ const Rightbar = () => {
                                     <div className="flex-1 font-medium mb-2 pb-1">
                                         {item.name}
                                     </div>
-                                    <div className="mr-2 mb-1 pb-1 pl-2 pt-1 h-5 w-12 rounded-md bg-[#D9DADB]">
+                                    <div className="mr-3 mb-1 pb-1 pl-2 pt-1 pr-2 h-6 w-22 rounded-md bg-[#D9DADB]">
                                         <DateTime />
                                     </div>
                                 </li>

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: canteen_connect
+    name: MyHostel
 
   data:
     mongodb:

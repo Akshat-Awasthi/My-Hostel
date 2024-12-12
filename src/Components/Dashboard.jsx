@@ -1,142 +1,146 @@
-import React, { useEffect, useState } from 'react'
-import { Chart as ChartJS, defaults } from "chart.js/auto";
-import { Bar, Doughnut, Line } from "react-chartjs-2";
-import { PiHandWavingFill } from "react-icons/pi";
+import React, { useEffect, useState } from 'react';
+import { Chart as ChartJS, defaults } from 'chart.js/auto';
+import { Bar, Doughnut, Line } from 'react-chartjs-2';
+import { PiHandWavingFill } from 'react-icons/pi';
 import { Link, useNavigate } from 'react-router-dom';
 import Rightbar from './Rightbar';
-import StudentProfile from "./lib/const/StudentProfile.json"
-import WeekFeedback from "./lib/const/WeekFeedback.json"
-import TodayMenu from "./lib/const/TodayMenu.json"
+import StudentProfile from './lib/const/StudentProfile.json';
+import WeekFeedback from './lib/const/WeekFeedback.json';
+import TodayMenu from './lib/const/TodayMenu.json';
 import P5Sketch from './Animation/P5Sketch';
-
 
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 defaults.plugins.title.display = true;
-defaults.plugins.title.align = "start";
+defaults.plugins.title.align = 'start';
 defaults.plugins.title.font.size = 16;
-defaults.plugins.title.color = "black";
-
+defaults.plugins.title.color = 'black';
 
 function Dashboard() {
-    const [LoadingTime,setLoadingTime] = useState(false);
-    const navigate = useNavigate();
-    const timeoutRef = React.useRef(null);
+  const [LoadingTime, setLoadingTime] = useState(false);
+  const navigate = useNavigate();
+  const timeoutRef = React.useRef(null);
 
-    const handleButton = () => {
-        setLoadingTime(true);
+  const handleButton = () => {
+    setLoadingTime(true);
+    timeoutRef.current = setTimeout(() => {
+      setLoadingTime(false);
+    }, 5000);
+    setTimeout(() => {
+      navigate('/sentiment');
+    }, 1000);
+  };
 
-        timeoutRef.current = setTimeout(() => {
-            setLoadingTime(false);
-        }, 5000);
-
-
-        setTimeout(() => {
-            navigate('/sentiment');
-        }, 1000); 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
+  }, []);
 
-    useEffect(() => {
-        return () => {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-        };
-    }, []);
-    
-    const colors = ['bg-purple-200', 'bg-[#ACC3FD]', 'bg-[#BAE5F5]', 'bg-[#CCEFBF]'];
-    const name = StudentProfile[0].name;
-    return (
-        <div className='flex flex-row justify-between'>
-            <div className='flex flex-col w-3/4'>
-            <div className='flex flex-row pl-3 pb-6 text-lg'>
-                    <div className='text-lg pt-1'><PiHandWavingFill /></div>
-                    <h1 className='pl-1'>Welcome, {name} !</h1>
-                </div>
-            <div className='flex flex-row'>
-                        <div className='flex flex-col w-full h-auto m-2 bg-slate-100'>
-                            <div className='flex flex-row mb-2 border-b-[1px] border-gray-300'>
-                                <h2 className='mb-2 font-bold flex-1'>Today's Menu</h2>
-                                <Link to='/Menu' className='mr-6'>View all</Link>
-                            </div>
-                            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full h-auto'>
-                                {TodayMenu.map((item, index) => (
-                                    <div key={item.time} className={`mr-6 w-48 h-52 p-6 pl-7 rounded-md ${colors[index % colors.length]}`}>
-                                        <ul className='flex flex-col gap-3'>
-                                            <li className='font-semibold'>{item.time}</li>
-                                            <li className='list-disc'>{item.item1}</li>
-                                            <li className='list-disc'>{item.item2}</li>
-                                            <li className='list-disc'>{item.item3}</li>
-                                        </ul>
-                                    </div>
-                                ))}
-                            </div>
+  const colors = ['bg-purple-200', 'bg-blue-200', 'bg-blue-100', 'bg-green-200'];
+  const name = StudentProfile[0].name;
 
-                        </div>
-                    </div>
-                
-                <div>
-                    <div className='flex flex-col mb-1'>
-                        <h2 className='flex-1 ml-4 text-xl pb-1 border-b-[1px] font-semibold'>Sentiment Analysis</h2>
-                    </div>
-                    <div className='flex flex-row'>
-                        <button type='button' className="text-lg w-56 h-12 ml-7 mt-6 font-semibold text-white bg-green-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-green-500 hover:border-green-500 hover:cursor-not-allowed  transition duration-300 ease-in-out">Positive</button>
-                        <div><P5Sketch /></div>
-                        <button type='button' className="text-lg w-56 h-12 mt-6 font-semibold text-white bg-red-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-red-500 hover:border-red-500 hover:cursor-not-allowed transition duration-300 ease-in-out">Negative</button>
-                    </div>
-                    <div className='ml-2'>
-                    <button type='button' onClick={handleButton} className={`text-lg w-56 h-16 ml-64 font-semibold text-white bg-blue-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-blue-500 hover:border-blue-500 ${LoadingTime ? 'cursor-progress' : 'cursor-default'} transition duration-300 ease-in-out`}>Press to Analyse</button>
-                    </div>
-
-                </div>
-                <div className='flex flex-col pl-3'>
-                    <div className='h-[50vh] mb-4 '>
-                        <div className='transform translate-x-[760px] translate-y-7' ><Link to='/chart' >Click Here</Link></div>
-                        <div className='h-full'>
-                        <Line
-                            data={{
-                                labels: WeekFeedback.map((data) => data.label),
-                                datasets: [
-                                    {
-                                        label: "Positive",
-                                        data: WeekFeedback.map((data) => data.Positive),
-                                        backgroundColor: "#064FF0",
-                                        borderColor: "#064FF0",
-                                    },
-                                    {
-                                        label: "Negative",
-                                        data: WeekFeedback.map((data) => data.Negative),
-                                        backgroundColor: "#FF3030",
-                                        borderColor: "#FF3030",
-                                    },
-                                ]
-                            }}
-                            options={{
-                                elements: {
-                                    line: {
-                                        tension: 0.4
-                                    },
-                                },
-                                plugins: {
-                                    title: {
-                                        text: "Weekly Feedback",
-                                    },
-                                },
-                            }} />
-                        </div>
-                        
-                    </div>
-                    
-                    <div className='h-[100vh] mt-2'></div>
-                </div>
-            </div>
-
-            <div >
-                <Rightbar />
-            </div>
-
+  return (
+    <div className='flex flex-row justify-between w-full p-3  min-h-screen '>
+      <div className='flex flex-col gap-4 w-full bg-gradient-to-r from-blue-100 to-purple-100 mr-2 px-7 py-3 rounded-lg shadow-lg'>
+        <div className='flex flex-row items-center pl-3 text-xl font-semibold text-gray-700'>
+          <div className='text-xl pr-2'><PiHandWavingFill /></div>
+          <h1>Welcome, {name}!</h1>
         </div>
-    );
+
+        {/* Today's Menu */}
+        <div className='p-6 rounded-lg  bg-white shadow-md w-full'>
+          <div className='flex flex-row justify-between items-center border-b pb-2 mb-2  relative'>
+            <h2 className='text-lg font-bold text-gray-700'>Today's Menu</h2>
+            <Link to='/Menu' className='text-blue-600 hover:underline'>View all</Link>
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+            {TodayMenu.map((item, index) => (
+              <div key={item.time} className={`w-full h-auto p-6 rounded-md ${colors[index % colors.length]} shadow-md`}>
+                <ul className='flex flex-col gap-3'>
+                  <li className='font-bold text-lg'>{item.time}</li>
+                  <li className='list-disc'>{item.item1}</li>
+                  <li className='list-disc'>{item.item2}</li>
+                  <li className='list-disc'>{item.item3}</li>
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className='flex flex-row justify-between gap-4'>
+          <div className='p-6 rounded-lg  bg-white shadow-md w-full'>
+            <h1 className='text-lg font-semibold mb-4 text-gray-700'>Write a Complaint</h1>
+            <button className='flex items-center px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300'>
+              Click here to proceed
+              <span className='ml-2'>→</span>
+            </button>
+          </div>
+          <div className='p-6 rounded-lg bg-white shadow-md w-full'>
+            <h1 className='text-lg font-semibold mb-4 text-gray-700'>Check Leave Status</h1>
+            <button className='flex items-center px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-300'>
+              Click here to proceed
+              <span className='ml-2'>→</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Sentiment Analysis */}
+        <div className='bg-white p-6 rounded-lg  shadow-md'>
+          <h2 className='text-lg font-bold mb-2 text-gray-700'>Sentiment Analysis</h2>
+          <div className='flex flex-row justify-between items-center ml-9 mr-9'>
+            <button type='button' className='text-lg w-56 h-12 font-semibold text-white bg-green-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-green-500 hover:border-green-500 transition duration-300 ease-in-out'>Positive</button>
+            <div className=''><P5Sketch /></div>
+            <button type='button' className='text-lg w-56 h-12 font-semibold text-white bg-red-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-red-500 hover:border-red-500 transition duration-300 ease-in-out'>Negative</button>
+          </div>
+          <div className='flex justify-center mt-6'>
+            <button type='button' onClick={handleButton} className={`flex items-center px-4 py-2 bg-blue-500 text-white font-medium h-[3rem] rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-300 ${LoadingTime ? 'cursor-progress' : 'cursor-pointer'} transition duration-300 ease-in-out`}>Press to Analyse <span className='ml-2'>→</span></button>
+          </div>
+        </div>
+
+        {/* Weekly Feedback Chart */}
+        <div className='bg-white p-6 rounded-lg shadow-md'>
+          <div className='flex justify-between items-center mb-6'>
+            <h2 className='text-xl font-bold text-gray-700'>Weekly Feedback</h2>
+            <Link to='/chart' className='text-blue-600 hover:underline'>Click Here</Link>
+          </div>
+          <div className='h-[50vh]'>
+            <Line
+              data={{
+                labels: WeekFeedback.map((data) => data.label),
+                datasets: [
+                  {
+                    label: 'Positive',
+                    data: WeekFeedback.map((data) => data.Positive),
+                    borderColor: '#64b5f6',
+                    tension: 0.4,
+                    
+                  },
+                  {
+                    label: 'Negative',
+                    data: WeekFeedback.map((data) => data.Negative),
+                   
+                    borderColor: '#ef5350',
+                    tension: 0.4,
+                   
+                  },
+                ],
+              }}
+              
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Right Sidebar */}
+      <div>
+        <Rightbar />
+      </div>
+    </div>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

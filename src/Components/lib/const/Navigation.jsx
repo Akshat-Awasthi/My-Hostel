@@ -45,6 +45,13 @@ export const Sidebar_Links  = [
         label:'Attendence',
         path:'/attendence',
         icon:<FaCalendarDays/>
+    },
+
+    {
+        key:'Sentimental analysis',
+        label:'Sentimental analysis',
+        path:'/foodcards',
+        icon:<FaCalendarDays/>
     }
 ]
 export const Sidebar_Logout  = [

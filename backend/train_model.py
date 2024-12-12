@@ -1,4 +1,5 @@
-import pandas as pd
+# backend/train_model.py
+import pandas as pd 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -6,7 +7,7 @@ from sklearn.metrics import classification_report, accuracy_score
 import joblib
 
 # Step 1: Load the dataset
-data = pd.read_csv('f.csv')  # Replace 'f.csv' with the path to your dataset
+data = pd.read_csv('C:/Users/abham/OneDrive/Documents/GitHub/Hostel.ai/backend/f.csv')  # ensure that f.csv has Review (Text) and Sentiment Score columns
 print("Dataset loaded successfully.")
 
 # Step 2: Extract features and labels
@@ -18,11 +19,11 @@ vectorizer = TfidfVectorizer()
 X_tfidf = vectorizer.fit_transform(X)
 print("Text vectorization completed.")
 
-# Step 4: Split the dataset into training and testing sets
+# Step 4: Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(X_tfidf, y, test_size=0.2, random_state=42)
 
 # Step 5: Train the logistic regression model
-model = LogisticRegression(multi_class='multinomial', solver='lbfgs')
+model = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500)
 model.fit(X_train, y_train)
 print("Model training completed.")
 
@@ -33,6 +34,6 @@ print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
 print(classification_report(y_test, y_pred))
 
 # Step 7: Save the model and vectorizer
-joblib.dump(model, "sentiment_model.pkl")
-joblib.dump(vectorizer, "vectorizer.pkl")
+joblib.dump(model, "model/sentiment_model.pkl")
+joblib.dump(vectorizer, "model/vectorizer.pkl")
 print("Model and vectorizer saved successfully.")

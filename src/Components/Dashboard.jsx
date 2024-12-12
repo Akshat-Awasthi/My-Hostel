@@ -4,7 +4,6 @@ import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { PiHandWavingFill } from 'react-icons/pi';
 import { Link, useNavigate } from 'react-router-dom';
 import Rightbar from './Rightbar';
-import StudentProfile from './lib/const/StudentProfile.json';
 import WeekFeedback from './lib/const/WeekFeedback.json';
 import TodayMenu from './lib/const/TodayMenu.json';
 import P5Sketch from './Animation/P5Sketch';
@@ -17,6 +16,7 @@ defaults.plugins.title.font.size = 16;
 defaults.plugins.title.color = 'black';
 
 function Dashboard() {
+  const [name, setName] = useState(''); // State to store the fetched name
   const [LoadingTime, setLoadingTime] = useState(false);
   const navigate = useNavigate();
   const timeoutRef = React.useRef(null);
@@ -32,6 +32,36 @@ function Dashboard() {
   };
 
   useEffect(() => {
+    // Fetch name from backend API using token
+    const fetchName = async () => {
+      const token = localStorage.getItem('token'); // Retrieve token from local storage
+
+      if (!token) {
+        console.error('Auth token is missing');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/users/getUser', {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Include token in Authorization header
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data)
+        setName(data.username);
+      } catch (error) {
+        console.error('Error fetching name:', error);
+      }
+    };
+
+    fetchName();
+
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -40,7 +70,6 @@ function Dashboard() {
   }, []);
 
   const colors = ['bg-purple-200', 'bg-blue-200', 'bg-blue-100', 'bg-green-200'];
-  const name = StudentProfile[0].name;
 
   return (
     <div className="flex flex-col lg:flex-row lg:justify-between p-3 min-h-screen gap-4">

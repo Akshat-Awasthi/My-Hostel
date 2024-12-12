@@ -23,12 +23,7 @@ function Dashboard() {
 
   const handleButton = () => {
     setLoadingTime(true);
-    timeoutRef.current = setTimeout(() => {
-      setLoadingTime(false);
-    }, 5000);
-    setTimeout(() => {
-      navigate('/sentiment');
-    }, 1000);
+    navigate('/sentiment');
   };
 
   useEffect(() => {
@@ -61,12 +56,6 @@ function Dashboard() {
     };
 
     fetchName();
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
   }, []);
 
   const colors = ['bg-purple-200', 'bg-blue-200', 'bg-blue-100', 'bg-green-200'];
@@ -78,7 +67,7 @@ function Dashboard() {
           <div className="text-2xl pr-2">
             <PiHandWavingFill />
           </div>
-          <h1>Welcome, {name}!</h1>
+          <h1>Welcome {name}!</h1>
         </div>
 
         {/* Today's Menu */}
@@ -103,57 +92,41 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="p-6 rounded-lg bg-white shadow-md flex-1">
-            <h1 className="text-lg font-semibold mb-4 text-gray-700">Write a Complaint</h1>
-            <button className="flex items-center px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
-              Click here to proceed
-              <span className="ml-2">→</span>
-            </button>
-          </div>
-          <div className="p-6 rounded-lg bg-white shadow-md flex-1">
-            <h1 className="text-lg font-semibold mb-4 text-gray-700">Check Leave Status</h1>
-            <button className="flex items-center px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-300">
-              Click here to proceed
-              <span className="ml-2">→</span>
-            </button>
-          </div>
-        </div>
-
         {/* Sentiment Analysis */}
-        <div className="p-6 rounded-lg bg-white shadow-md">
-          <h2 className="text-lg font-bold mb-4 text-gray-700">Sentiment Analysis</h2>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <button className="text-lg w-full sm:w-48 font-semibold text-white bg-green-500 px-6 py-2 rounded-2xl hover:bg-white hover:text-green-500 hover:border-green-500 transition duration-300">
-              Positive
-            </button>
-            <P5Sketch />
-            <button className="text-lg w-full sm:w-48 font-semibold text-white bg-red-500 px-6 py-2 rounded-2xl hover:bg-white hover:text-red-500 hover:border-red-500 transition duration-300">
-              Negative
-            </button>
-          </div>
-          <div className="flex justify-center mt-6">
+        <div className="p-6 rounded-lg bg-white shadow-md flex justify-between">
+          <div className=''>
+          <h2 className="text-lg font-bold mb-4 text-gray-700 w-full">Sentiment Analysis</h2>
             <button
               onClick={handleButton}
-              className={`px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 focus:ring-2 ${
+              className={`px-4 py-2 ml-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 focus:ring-2 ${
                 LoadingTime ? 'cursor-progress' : 'cursor-pointer'
               } transition duration-300`}
             >
               Press to Analyse <span className="ml-2">→</span>
             </button>
           </div>
+          <div className="flex flex-col items-center justify-between gap-1">
+            <button className="text-xs w-full sm:w-28 h-6 font-semibold text-white bg-green-500 px-2 rounded-2xl hover:bg-white hover:text-green-500 hover:border-green-500 transition duration-300">
+              Positive
+            </button>
+            <P5Sketch />
+            <button className="text-xs w-full sm:w-28 h-6 font-semibold text-white bg-red-500 px-2 rounded-2xl hover:bg-white hover:text-red-500 hover:border-red-500 transition duration-300">
+              Negative
+            </button>
+          </div>
+          
+          <div className='w-56 flex bg-slate-200 p-3 rounded-lg'><p className='text-xs text-gray-600'>Click here to view the sentiment analysis of mess food. Get a detailed report with overall feedback, individual comments, key insights, and trends over time.</p></div>
+          
         </div>
-
-        {/* Weekly Feedback Chart */}
-        <div className="p-6 rounded-lg bg-white shadow-md">
-          <div className="flex justify-between items-center mb-4">
+        <div className='flex gap-4'>
+        <div className="p-6 w-1/2 flex flex-col justify-center items-center rounded-lg bg-white shadow-md">
+          <div className="flex gap-28">
             <h2 className="text-lg font-bold text-gray-700">Weekly Feedback</h2>
-            <Link to="/chart" className="text-blue-600 hover:underline">
+            <Link to="/chart" className="text-blue-600 hover:underline text-xs mt-[6px]">
               Click Here
             </Link>
           </div>
-          <div className="h-64 sm:h-80 lg:h-[50vh]">
+          <div className="w-[20rem] h-56">
             <Line
               data={{
                 labels: WeekFeedback.map((data) => data.label),
@@ -175,10 +148,31 @@ function Dashboard() {
             />
           </div>
         </div>
+        <div className="flex flex-col gap-4 overflow-y-scroll w-1/2">
+        <div className="p-6 rounded-lg bg-white shadow-md flex-1">
+            <h1 className="text-lg font-semibold mb-4 text-gray-700">Give your Feedback</h1>
+            <button className="flex items-center px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-300">
+              Click here to proceed
+              <span className="ml-2">→</span>
+            </button>
+          </div>
+          <div className="p-6 rounded-lg bg-white shadow-md flex-1">
+            <h1 className="text-lg font-semibold mb-4 text-gray-700">Write a Complaint</h1>
+            <button className="flex items-center px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+              Click here to proceed
+              <span className="ml-2">→</span>
+            </button>
+          </div>
+          
+        </div>
+        </div>
+        {/* Weekly Feedback Chart */}
+        
       </div>
+      
 
       {/* Right Sidebar */}
-      <div className="lg:w-1/4">
+      <div className="lg:w-1/4 ">
         <Rightbar />
       </div>
     </div>

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import { PiHandWavingFill } from "react-icons/pi";
 import { Link, useNavigate } from 'react-router-dom';
 import Rightbar from './Rightbar';
-import StudentProfile from "./lib/const/StudentProfile.json"
-import WeekFeedback from "./lib/const/WeekFeedback.json"
-import TodayMenu from "./lib/const/TodayMenu.json"
+import StudentProfile from "./lib/const/StudentProfile.json";
+import WeekFeedback from "./lib/const/WeekFeedback.json";
+import TodayMenu from "./lib/const/TodayMenu.json";
 import P5Sketch from './Animation/P5Sketch';
-
+import axios from 'axios';  // Import Axios
 
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
@@ -17,11 +17,41 @@ defaults.plugins.title.align = "start";
 defaults.plugins.title.font.size = 16;
 defaults.plugins.title.color = "black";
 
-
 function Dashboard() {
-    const [LoadingTime,setLoadingTime] = useState(false);
+    const [LoadingTime, setLoadingTime] = useState(false);
+    const [username, setUsername] = useState("");  // State to store the username
+    const [error, setError] = useState("");  // State to store any error messages
     const navigate = useNavigate();
     const timeoutRef = React.useRef(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        
+        if (token) {
+            // Send API request to fetch the logged-in user details using the token
+            axios.get('http://localhost:8080/api/v1/users/getUser', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            .then((response) => {
+                // Set the username from the response
+                setUsername(response.data.username);
+            })
+            .catch((error) => {
+                console.error('Error fetching user data', error);
+                setError('Failed to fetch user data.');
+            });
+        } else {
+            console.log('No token found');
+        }
+
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     const handleButton = () => {
         setLoadingTime(true);
@@ -30,29 +60,22 @@ function Dashboard() {
             setLoadingTime(false);
         }, 5000);
 
-
         setTimeout(() => {
             navigate('/sentiment');
-        }, 1000); 
+        }, 1000);
     };
 
-    useEffect(() => {
-        return () => {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-        };
-    }, []);
-    
     const colors = ['bg-purple-200', 'bg-[#ACC3FD]', 'bg-[#BAE5F5]', 'bg-[#CCEFBF]'];
-    const name = StudentProfile[0].name;
+    const name = username || StudentProfile[0].name;  // Fallback to profile name if no username fetched
+
     return (
         <div className='flex flex-row h-[100vh] overflow-y-auto bg-slate-100'>
             <div className='flex flex-col w-3/4'>
                 <div className='flex flex-row pl-3 pb-16 text-xl'>
                     <div className='text-xl pt-1'><PiHandWavingFill /></div>
-                    <h1 className='pl-1'>Welcome, {name} !</h1>
+                    <h1 className='pl-1'>Welcome, {name}!</h1>
                 </div>
+                {error && <p className="text-red-500">{error}</p>} {/* Display error message if any */}
                 <div>
                     <div className='flex flex-col mb-1'>
                         <h2 className='flex-1 ml-4 text-xl pb-1 border-b-[1px] font-semibold'>Sentiment Analysis</h2>
@@ -63,46 +86,44 @@ function Dashboard() {
                         <button type='button' className="text-lg w-56 h-12 mt-6 font-semibold text-white bg-red-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-red-500 hover:border-red-500 hover:cursor-not-allowed transition duration-300 ease-in-out">Negative</button>
                     </div>
                     <div className='ml-2'>
-                    <button type='button' onClick={handleButton} className={`text-lg w-56 h-16 ml-64 font-semibold text-white bg-blue-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-blue-500 hover:border-blue-500 ${LoadingTime ? 'cursor-progress' : 'cursor-default'} transition duration-300 ease-in-out`}>Press to Analyse</button>
+                        <button type='button' onClick={handleButton} className={`text-lg w-56 h-16 ml-64 font-semibold text-white bg-blue-500 border border-transparent px-6 py-2 rounded-2xl hover:bg-white hover:text-blue-500 hover:border-blue-500 ${LoadingTime ? 'cursor-progress' : 'cursor-default'} transition duration-300 ease-in-out`}>Press to Analyse</button>
                     </div>
-
                 </div>
                 <div className='flex flex-col pl-3'>
-                    <div className='h-[50vh] mb-4 '>
+                    <div className='h-[50vh] mb-4'>
                         <div className='transform translate-x-[760px] translate-y-7' ><Link to='/chart' >Click Here</Link></div>
                         <div className='h-full'>
-                        <Line
-                            data={{
-                                labels: WeekFeedback.map((data) => data.label),
-                                datasets: [
-                                    {
-                                        label: "Positive",
-                                        data: WeekFeedback.map((data) => data.Positive),
-                                        backgroundColor: "#064FF0",
-                                        borderColor: "#064FF0",
+                            <Line
+                                data={{
+                                    labels: WeekFeedback.map((data) => data.label),
+                                    datasets: [
+                                        {
+                                            label: "Positive",
+                                            data: WeekFeedback.map((data) => data.Positive),
+                                            backgroundColor: "#064FF0",
+                                            borderColor: "#064FF0",
+                                        },
+                                        {
+                                            label: "Negative",
+                                            data: WeekFeedback.map((data) => data.Negative),
+                                            backgroundColor: "#FF3030",
+                                            borderColor: "#FF3030",
+                                        },
+                                    ]
+                                }}
+                                options={{
+                                    elements: {
+                                        line: {
+                                            tension: 0.4
+                                        },
                                     },
-                                    {
-                                        label: "Negative",
-                                        data: WeekFeedback.map((data) => data.Negative),
-                                        backgroundColor: "#FF3030",
-                                        borderColor: "#FF3030",
+                                    plugins: {
+                                        title: {
+                                            text: "Weekly Feedback",
+                                        },
                                     },
-                                ]
-                            }}
-                            options={{
-                                elements: {
-                                    line: {
-                                        tension: 0.4
-                                    },
-                                },
-                                plugins: {
-                                    title: {
-                                        text: "Weekly Feedback",
-                                    },
-                                },
-                            }} />
+                                }} />
                         </div>
-                        
                     </div>
                     <div className='flex flex-row'>
                         <div className='flex flex-col h-[40vh] m-2 bg-slate-100'>
@@ -122,7 +143,6 @@ function Dashboard() {
                                     </div>
                                 ))}
                             </div>
-
                         </div>
                     </div>
                     <div className='h-[100vh] mt-2'></div>
@@ -130,11 +150,10 @@ function Dashboard() {
             </div>
 
             <div className='h-[100vh] w-full ml-2 mr-4'>
-                <Rightbar />
+                <Rightbar/>
             </div>
-
         </div>
     );
 }
 
-export default Dashboard
+export default Dashboard;

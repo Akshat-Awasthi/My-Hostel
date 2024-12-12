@@ -74,7 +74,7 @@ function FoodFeedbackSentimentAnalyzer({ feedbackData }) {
   const overallSemMarks = overallSentiment.averageSentiment;
   const overallPercent = overallSemMarks * 10;
   return (
-    <div className=' overflow-auto' style={{ maxHeight: '750px' }}>
+    <div style={{ maxHeight: '750px' }}>
       <div className='h-24'>
                 <div className='flex flex-row ml-3'>
                 <h2 className=' ml-4 mt-3 text-xl font-semibold'>Overall Sentiment</h2>

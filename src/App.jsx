@@ -12,7 +12,8 @@ import Profile from './Components/Profile';
 import Layout from './Components/shared/Layout';
 import Chart from "./Components/Chart"
 import Attendence from "./Components/MachineLearning/Attendence"
-import Sentiment from "./Components/MachineLearning/Sentiment"
+import LeaveForm from './Components/LeaveForm';
+import Sentiment from "./Components/MachineLearning/Sentiment";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/menu" element={<Menu />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/feedback" element={<Feedback />} />
+            <Route path="/leaveform" element={<LeaveForm />} />
             <Route path="/complaint" element={<Complaint />} />
             <Route path="/sentiment" element={<FoodFeedbackSentimentAnalyzer />} />
             <Route path="/attendence" element={<Attendence/>} />

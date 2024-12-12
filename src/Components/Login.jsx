@@ -62,7 +62,7 @@ const Login = () => {
             <label className="font-semibold" htmlFor="password">Password</label>
             <input type={visible ? "text" : "password"} name="password" placeholder="Enter Password" required value={user.password} onChange={handleInput} className="pl-10 py-2 w-full border border-gray-300 rounded focus:outline-none focus:border-blue-500" />
             <RiLockPasswordFill className="absolute top-1/2 transform translate-y left-2 text-gray-400" />
-            <div className="absolute top-1/2 transform translate-y-12 translate-x-44" onClick={() => setVisible(!visible)}>
+            <div className="absolute top-1/2 mx-[22rem] mt-1" onClick={() => setVisible(!visible)}>
               {
                 visible ? <FaRegEyeSlash style={{ color: 'gray' }} /> : <FaRegEye style={{ color: 'gray' }} />
               }

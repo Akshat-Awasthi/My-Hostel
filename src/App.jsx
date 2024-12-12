@@ -13,6 +13,7 @@ import Layout from './Components/shared/Layout';
 import Chart from "./Components/Chart"
 import Attendence from "./Components/MachineLearning/Attendence"
 import LeaveForm from './Components/LeaveForm';
+import Sentiment from "./Components/MachineLearning/Sentiment";
 import FoodCards from './Components/FoodCards';
 import FoodDetails from './Components/FoodDetails';
 
@@ -37,6 +38,8 @@ function App() {
             <Route path="/sentiment" element={<FoodFeedbackSentimentAnalyzer />} />
             <Route path="/attendence" element={<Attendence/>} />
             <Route path="/chart" element={<Chart />} />
+            <Route path="/sentimentN" element={<Sentiment />} />
+
           </Route>
         </Route>
       </Routes>

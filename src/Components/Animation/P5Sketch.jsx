@@ -6,29 +6,27 @@ const P5Sketch = () => {
 
     useEffect(() => {
         const sketch = (p) => {
-            let faceX; // Initial x-coordinate of the face
-            const faceY = 50; // Fixed y-coordinate of the face (middle of the small canvas)
-            const faceRadius = 30; // Larger radius of the face to make it bigger
-            const faceSpeed = 2; // Speed of the face
-            let faceDirection = 1; // Direction of face movement (1 for right, -1 for left)
+            let faceY; // Initial y-coordinate of the face
+            const faceX = 50; // Fixed x-coordinate of the face (middle of the small canvas)
+            const faceRadius = 15; // Radius of the face to make it bigger
+            const faceSpeed = 0.7; // Speed of the face
+            let faceDirection = 1; // Direction of face movement (1 for down, -1 for up)
             let isHappy = true; // State of the face (true for happy, false for sad)
 
-           
             p.setup = () => {
-                p.createCanvas(400, 100); 
-                faceX = p.width / 2; // Start face at the middle of the canvas
+                p.createCanvas(100, 70); // Change canvas to a vertical layout
+                faceY = p.height / 2; // Start face at the middle of the canvas
             };
 
-            
             p.draw = () => {
-                // Set the background color to slate-100 (approximation)
-                p.background(255, 255, 255);
+                // Set the background color to white
+                p.background(255);
 
                 // Update the position of the face
-                faceX += faceSpeed * faceDirection;
+                faceY += faceSpeed * faceDirection;
 
-                // Check if the face hits the left or right boundary of the canvas
-                if (faceX - faceRadius <= 0 || faceX + faceRadius >= p.width) {
+                // Check if the face hits the top or bottom boundary of the canvas
+                if (faceY - faceRadius <= 0 || faceY + faceRadius >= p.height) {
                     // Reverse the direction of movement
                     faceDirection *= -1;
                     // Toggle the happiness state of the face
@@ -43,11 +41,9 @@ const P5Sketch = () => {
             const drawFace = (p, x, y, radius, happy) => {
                 // Set the fill color based on the happiness state
                 if (happy) {
-                    // Happy face: set color to yellow (RGB values: 255, 223, 0)
-                    p.fill(76, 175, 80);
+                    p.fill(76, 175, 80); // Happy face: set color to green
                 } else {
-                    // Sad face: set color to blue (RGB values: 0, 0, 255)
-                    p.fill(234, 67, 53);
+                    p.fill(234, 67, 53); // Sad face: set color to red
                 }
 
                 // Draw the face (circle)

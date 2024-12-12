@@ -1,11 +1,11 @@
 spring:
   application:
-    name: canteen_connect
+    name: MyHostel
 
   data:
     mongodb:
       uri: mongodb://localhost:27017/
-      database: canteen_connect_db
+      database: MyHostel
       auto-index-creation: true
 
 security:

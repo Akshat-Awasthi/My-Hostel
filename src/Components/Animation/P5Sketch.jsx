@@ -15,14 +15,14 @@ const P5Sketch = () => {
 
            
             p.setup = () => {
-                p.createCanvas(250, 100); 
+                p.createCanvas(400, 100); 
                 faceX = p.width / 2; // Start face at the middle of the canvas
             };
 
             
             p.draw = () => {
                 // Set the background color to slate-100 (approximation)
-                p.background(241, 245, 249);
+                p.background(255, 255, 255);
 
                 // Update the position of the face
                 faceX += faceSpeed * faceDirection;

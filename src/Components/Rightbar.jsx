@@ -17,7 +17,13 @@ const Rightbar = () => {
         const intervalId = setInterval(() => {
             const date = new Date();
             setCurrentDay(date.toLocaleString('en-US', { weekday: 'long' }));
-            setCurrentDate(date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+            setCurrentDate(
+                date.toLocaleString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                })
+            );
         }, 1000);
 
         return () => clearInterval(intervalId);
@@ -59,8 +65,9 @@ const Rightbar = () => {
                 </div>
                 <div className="flex flex-col ml-2 mt-2">
                     {Announcement.map((item, index) => (
+                        // Include index to ensure key uniqueness
                         <div
-                            key={item.name}
+                            key={`${item.name}-${index}`}
                             className={`rounded-md border ${
                                 index === 0 ? 'border-none' : 'border-blue-500'
                             } p-2 mb-2 ${
